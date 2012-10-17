@@ -1,5 +1,21 @@
 IssueTracker::Application.routes.draw do
 
+  get "main/home"
+
+  get "tickets/index"
+
+  get "tickets/show"
+
+  get "tickets/new"
+
+  get "tickets/create"
+
+  get "tickets/edit"
+
+  get "tickets/update"
+
+  get "tickets/destroy"
+
   devise_for :managers
 
   # The priority is based upon order of creation:
