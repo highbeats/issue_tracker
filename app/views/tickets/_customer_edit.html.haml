@@ -1,0 +1,9 @@
+= simple_form_for @ticket do |f|
+  = f.input :subject
+  = f.input :customer
+  = f.input :email
+  = f.association :department
+
+  .form-actions
+    = f.button :submit, class: 'btn btn-inverse btn-large'
+    = link_to 'Cancel', :back, class: 'btn'

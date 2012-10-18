@@ -14,7 +14,7 @@
           %td= @ticket.email
         %tr
           %td Department
-          %td= @ticket.department
+          %td= @ticket.department.name
         %tr
           %td Date
           %td= @ticket.created_at.strftime('%d %b, %l %p')
