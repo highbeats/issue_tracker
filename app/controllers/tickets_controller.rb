@@ -26,8 +26,8 @@ class TicketsController < ApplicationController
           flash[:alert] = @ticket.errors.to_a
           render action: :new
         else
-          flash[:notice] = 'Ticket created!'
-          redirect_to tickets_url
+          flash[:notice] = 'Ticket created! We will review it asap!'
+          redirect_to root_url
         end
       end
     end

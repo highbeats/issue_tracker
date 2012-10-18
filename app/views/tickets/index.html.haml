@@ -1,2 +1,27 @@
-%h1 Tickets#index
-%p Find me in app/views/tickets/index.html.haml
+.row-fluid
+  .span12
+    .span3
+      %ul.nav.nav-list.affix
+        %li= link_to 'All', '#'
+        %li= link_to  'Unassigned', '#'
+
+    .span8
+      %section#tickets_index
+        .page-header
+          %h1 Tickets
+
+        %table.table.table-bordered.table-hover
+          %thead
+            %tr
+              %th Subject
+              %th Department
+              %th Date
+              %th Status
+          %tbody
+            - @tickets.each do |ticket|
+              %tr
+                %td= link_to "#{ticket.subject}", edit_ticket_path(ticket)
+                %td= ticket.department.name
+                %td= ticket.created_at.strftime('%d %b, %l %p')
+                %th= ticket.status
+

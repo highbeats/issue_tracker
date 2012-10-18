@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+['Sales', 'Support'].each do |name|
+  Department.create!(name: name)
+end
+
+manager = Manager.create!(email: "example@example.com", password: "testsword", password_confirmation: "testsword")

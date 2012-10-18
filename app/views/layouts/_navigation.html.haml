@@ -1,4 +1,4 @@
-= link_to 'Issue Tracker', '#', class: 'brand'
+= link_to 'Issue Tracker', root_path, class: 'brand'
 %ul.nav.user_menu.pull-right
   - if manager_signed_in?
     %li= link_to 'Logout', destroy_manager_session_path, method: 'delete'
