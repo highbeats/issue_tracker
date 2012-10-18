@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %meta{ charset: 'utf-8' }
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' }
+
+    = javascript_include_tag 'application'
+    = stylesheet_link_tag    'application', media: 'all'
+    = csrf_meta_tag
+
+    = yield :head
+
+    %title reamp
+
+  %body{ class: "#{controller.controller_name} #{controller.action_name}" }
+    %header.navbar.navbar-fixed-top
+      %nav.navbar-inner
+        .container-fluid
+          = render 'layouts/navigation'
+    #main{ role: 'main' }
+      .container
+        .content
+          .row-fluid
+            .span12
+              = render 'layouts/messages'
+              = yield
+          %footer
