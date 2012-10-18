@@ -24,7 +24,14 @@
           %tr
             %td Status
             %td= @ticket.status
+          %tr
+            %td Question
+            %td.well
+              %p= @ticket.question
 
       .form-actions
         = link_to 'Edit', edit_ticket_path(@ticket), class: 'btn btn-primary'
         = link_to 'Back', :back, class: 'btn'
+
+- if @ticket.comments.any?
+  = render partial: 'tickets/comments', locals: { comments: @ticket.comments }
