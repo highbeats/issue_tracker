@@ -30,6 +30,7 @@ class Ticket < ActiveRecord::Base
   validates :department_id, :email, :uid, presence: true
 
   before_validation :set_uid, :set_status, on: :create
+  after_create :notify_customer
 
   private
 
@@ -39,5 +40,9 @@ class Ticket < ActiveRecord::Base
 
   def set_status
     self.status = 'Waiting for Staff Response'
+  end
+
+  def notify_customer
+    Notifier.ticket_created(self).deliver
   end
 end

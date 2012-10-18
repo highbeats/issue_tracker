@@ -1,0 +1,9 @@
+.page-header
+  %h4= "Hi #{@ticket.customer}!"
+
+.span12
+  %p= "Your ticket #{@ticket.subject} has been submitted to our managers, TicketID: #{@ticket.uid} we'll review it and assist you shortly."
+  %p
+    You can track progress
+    = link_to 'here', ticket_path(@ticket)
+  %p Thank you!

@@ -1,2 +1,14 @@
-%h1 Tickets#new
-%p Find me in app/views/tickets/new.html.haml
+.page-header
+  %h1 New Ticket
+
+.row-fluid
+  .span12
+    = simple_form_for @ticket do |f|
+      = f.input :customer, label: 'Your Name'
+      = f.input :email, label: 'Your Email'
+      = f.input :subject
+      = f.input :question, input_html: { rows: '10' }
+
+      .form-actions
+        = f.button :submit, class: 'btn btn-success btn-large'
+        = link_to 'Cancel', :back, class: 'btn'
