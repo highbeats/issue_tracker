@@ -1,10 +1,10 @@
 %section#ticket_comments
   .page-header
     %h4 Comments
-  .span8.offset2
+  .span12.offset2
     - comments.each do |comment|
-      %table.table.table-bordered
-        %thead
-          %tr
-            %th= comment.manager.present? ? "Manager" : "Customer"
-            %th= comment.content
+      .pre{ style: 'border: 1px solid #ddd;padding:10px;margin-bottom:10px;'}
+        %p= comment.content
+        %small
+          Author:
+          = comment.manager.present? ? "Manager" : "Customer"
