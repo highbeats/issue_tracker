@@ -7,6 +7,6 @@
       - if manager_signed_in?
         = render 'tickets/manager_edit'
       - else
-        = render 'tickets/customer_tickets'
+        = render 'tickets/customer_edit'
 - if @ticket.comments.any?
   = render partial: 'tickets/comments', locals: { comments: @ticket.comments }
