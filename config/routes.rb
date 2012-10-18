@@ -1,5 +1,7 @@
 IssueTracker::Application.routes.draw do
-  resources :tickets
+  resources :tickets do
+    resources :comments, only: [ :index, :new, :create ]
+  end
 
   devise_for :managers
 

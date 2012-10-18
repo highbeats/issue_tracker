@@ -1,0 +1,15 @@
+.page-header
+  %h4
+    New comment
+    %small.pull-right= "TicketID: #{@ticket.uid}"
+
+.row-fluid
+  .span12
+    = simple_form_for @comment, url: ticket_comments_path(@ticket) do |f|
+      - if manager_signed_in?
+        = f.input :manager_id, as: :hidden, input_html: { value: current_manager.id }
+      = f.input :content, input_html: { cols: '100', rows: '10' }
+
+      .form-actions
+        = f.button :submit, class: 'btn btn-success btn-large'
+        = link_to 'Cancel', :back, class: 'btn'
