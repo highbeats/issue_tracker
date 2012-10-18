@@ -1,0 +1,34 @@
+.row-fluid
+  .span5
+    %table.table.table-stripped.table-hover
+      %thead
+        %tr
+          %th Subject
+          %th= @ticket.subject
+      %tbody
+        %tr
+          %td Customer name
+          %td= @ticket.customer
+        %tr
+          %td Customer email
+          %td= @ticket.email
+        %tr
+          %td Department
+          %td= @ticket.department
+        %tr
+          %td Date
+          %td= @ticket.created_at.strftime('%d %b, %l %p')
+
+  .span5.pull-right
+    = simple_form_for @ticket do |f|
+      = f.input :status, collection: Ticket::STATUSES
+      = f.association :manager, label_method: :email
+      .form-actions
+        = f.button :submit, class: 'btn btn-inverse'
+
+.row-fluid
+  .span12
+    .page-header
+      %h4 Question
+    .well
+      %p= @ticket.question

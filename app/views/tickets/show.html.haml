@@ -1,2 +1,30 @@
-%h1 Tickets#show
-%p Find me in app/views/tickets/show.html.haml
+.page-header
+  %h1 
+    Ticket
+    %small.pull-right= @ticket.uid
+
+%section#ticket_show
+  .row-fluid
+    .span12
+      %table.table.table-stripped.table-hover
+        %thead
+          %tr
+            %th Subject
+            %th= @ticket.subject
+        %tbody
+          %tr
+            %td Department
+            %td= @ticket.department.name
+          %tr
+            %td Customer
+            %td= @ticket.customer
+          %tr
+            %td Customer email
+            %td= @ticket.email
+          %tr
+            %td Status
+            %td= @ticket.status
+
+      .form-actions
+        = link_to 'Edit', edit_ticket_path(@ticket), class: 'btn btn-primary'
+        = link_to 'Back', :back, class: 'btn'

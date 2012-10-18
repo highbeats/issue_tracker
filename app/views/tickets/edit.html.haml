@@ -1,2 +1,12 @@
-%h1 Tickets#edit
-%p Find me in app/views/tickets/edit.html.haml
+.page-header
+  %h1 Edit ticket
+
+%section#edit_ticket
+  .row-fluid
+    .span12
+      - if manager_signed_in?
+        = render 'tickets/manager_edit'
+      - else
+        = render 'tickets/customer_tickets'
+- if @ticket.comments.any?
+  = render partial: 'tickets/comments', locals: { comments: @ticket.comments }
