@@ -17,10 +17,15 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'devise'
 gem 'thin'
+gem 'time_diff'
+gem 'js-routes'
+gem 'redis'
+gem 'best_in_place'
 
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'timecop'
 end
 
 group :test do

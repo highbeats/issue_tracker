@@ -1,0 +1,22 @@
+
+.row-fluid
+  .span12
+    .page-header
+      %h2 Tracker
+    .btn-toolbar
+      .btn-group.pull-right
+        = link_to '#', class: 'btn btn-inverse btn-small', id: 'new_task' do
+          %i.icon-plus-sign.icon-white
+          %span new task
+        = link_to '#', class: 'btn btn-primary btn-small', id: 'new_project' do
+          %i.icon-plus-sign.icon-white
+          %span new project
+
+    %table.table.table-hover
+      %caption
+        Active tasks
+      %tbody
+        = render partial: 'task', collection: @tasks
+#modals
+  = render 'tasks/form'
+

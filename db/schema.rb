@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017210903) do
+ActiveRecord::Schema.define(:version => 20121109212806) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -53,6 +53,28 @@ ActiveRecord::Schema.define(:version => 20121017210903) do
   add_index "managers", ["email"], :name => "index_managers_on_email", :unique => true
   add_index "managers", ["reset_password_token"], :name => "index_managers_on_reset_password_token", :unique => true
 
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.integer  "manager_id"
+    t.string   "provider"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.string   "name"
+    t.time     "time_spent"
+    t.integer  "manager_id"
+    t.datetime "last_updated_at"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.boolean  "in_progress",     :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.text     "estimated_time"
+    t.integer  "project_id"
+  end
+
   create_table "tickets", :force => true do |t|
     t.string   "customer"
     t.string   "uid"
@@ -64,6 +86,16 @@ ActiveRecord::Schema.define(:version => 20121017210903) do
     t.integer  "department_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "time_trackings", :force => true do |t|
+    t.integer  "manager_id"
+    t.integer  "task_id"
+    t.datetime "started"
+    t.datetime "stopped_at"
+    t.integer  "total_time"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

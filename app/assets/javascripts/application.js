@@ -14,4 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require bootstrap
+//= require tracker
+//= require js-routes
+//= require best_in_place
 //= require_tree .

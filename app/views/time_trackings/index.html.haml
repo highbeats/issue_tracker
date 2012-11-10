@@ -1,0 +1,9 @@
+.page-header
+  %h2 Tracker
+
+.row-fluid#tracker_recent
+  .span3
+    = link_to @task, class: 'btn btn-inverse btn-large' do
+      %i.icon-plus-sign New
+  .span9
+    = render partial: 'task', collection: @time_trackings

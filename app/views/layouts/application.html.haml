@@ -10,18 +10,14 @@
 
     = yield :head
 
-    %title reamp
+    %title Tracker
 
   %body{ class: "#{controller.controller_name} #{controller.action_name}" }
-    %header.navbar.navbar-fixed-top
-      %nav.navbar-inner
-        .container-fluid
-          = render 'layouts/navigation'
-    #main{ role: 'main' }
-      .container
-        .content
-          .row-fluid
-            .span12
-              = render 'layouts/messages'
-              = yield
-          %footer
+    = render 'layouts/navigation'
+    .container
+      .row-fluid
+        .span12
+          = render 'layouts/messages'
+      .row-fluid
+        .span12
+          = yield
