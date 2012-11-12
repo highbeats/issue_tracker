@@ -1,7 +1,7 @@
 $ ->
   weekChart = {}
   intervalId = 0
-  runTimer = $('tr.error .timer')
+  runTimer = $('tr.error')
   hideStoppedControls = ->
     $('tr:not(".error")').find('.btn-group').hide()
 
@@ -19,6 +19,7 @@ $ ->
     ).done (data) =>
       $(@).closest('tr').addClass('error')
       $(@).closest('tr').find('span.label').addClass('label-important')
+      $('tr:not(".error")').find('.btn-group').hide()
       intervalId = timerGo()
 
   $('.btn:contains("Stop")').click (e) ->
@@ -29,10 +30,10 @@ $ ->
       url: Routes.task_time_tracking_path(taskId, trackId, { format: 'json'} ),
       type: 'DELETE'
     ).done (data) =>
+      clearInterval(intervalId)
       $(@).closest('tr').find('.label').removeClass('label-important')
       $(@).closest('tr').removeClass('error')
       $('tr:not(".error")').find('.btn-group').show()
-      clearInterval(intervalId)
 
   pad = (val) -> if(val > 9) then val else ("0" + val)
 
@@ -45,12 +46,10 @@ $ ->
   timerGo = ->
     setInterval updateTimer, 1000
 
-  if runTimer
+  if $('tr.error').length
     runTimer.find('span.label').addClass('label-important')
     hideStoppedControls()
     intervalId = timerGo()
-
-  $('tr:not(".error")').find('.btn-group').show()
 
   recOpts =
     chart:
