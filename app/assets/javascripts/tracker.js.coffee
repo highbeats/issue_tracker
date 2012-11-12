@@ -1,19 +1,18 @@
 $ ->
-  weekChart = {}
   intervalId = 0
+  weekChart = {}
 
   $('#new_task').click (e) ->
     e.preventDefault()
     $('#new_tsk_mod').modal keyboard: true
 
-
   pad = (val) -> if(val > 9) then val else ("0" + val)
 
   updateTimer = ->
-    sec = parseInt($('span.secs.label-important').text())
-    mins = parseInt($('span.mins.label-important').text())
-    $('span.secs.label-important').html(pad(++sec%60))
-    $('span.mins.label-important').html(pad(++mins%60)) if sec%60 is 0
+    sec = parseInt($('.secs.label-important').text())
+    mins = parseInt($('.mins.label-important').text())
+    $('.secs.label-important').html(pad(++sec%60))
+    $('.mins.label-important').html(pad(++mins%60)) if sec%60 is 0
 ##
 #
 
@@ -29,13 +28,14 @@ $ ->
 ## Start - Stop
 #
   $('.btn-danger:contains("Start")').click (e) ->
+    e.preventDefault()
     unless $('tr.error').length
-      e.preventDefault()
-      taskId = $(@).closest('.btn-group').data('task_id')
+      startTaskId = $(@).closest('.btn-group').data('task_id')
       $.ajax(
-        url: Routes.task_time_trackings_path(taskId, { format: 'json'} ),
+        url: Routes.task_time_trackings_path(startTaskId, { format: 'json'} ),
         type: 'POST'
       ).done (data) =>
+        clearInterval(intervalId)
         $(@).closest('tr').addClass('error')
         $(@).closest('tr').find('span.label').addClass('label-important')
         $('tr:not(".error")').find('.btn-group').hide()
@@ -44,10 +44,10 @@ $ ->
   $('.btn:contains("Stop")').click (e) ->
     e.preventDefault()
     if $('tr.error').length
-      taskId = $(@).closest('.btn-group').data('task_id')
+      stopTaskId = $(@).closest('.btn-group').data('task_id')
       trackId = $(@).closest('.btn-group').data('track_id')
       $.ajax(
-        url: Routes.task_time_tracking_path(taskId, trackId, { format: 'json'} ),
+        url: Routes.task_time_tracking_path(stopTaskId, trackId, { format: 'json'} ),
         type: 'DELETE'
       ).done (data) =>
         clearInterval(intervalId)
