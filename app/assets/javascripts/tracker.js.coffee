@@ -7,7 +7,7 @@ $ ->
     $('#new_tsk_mod').modal keyboard: true
 
 
-  pad = (val) -> if(val > 9) then ("" + val) else ("0" + val)
+  pad = (val) -> if(val > 9) then val else ("0" + val)
 
   updateTimer = ->
     sec = parseInt($('span.secs.label-important').text())
@@ -17,40 +17,43 @@ $ ->
 ##
 #
 
-  $('.chart-container').css('height', $('table').css('height'))
+  $('.chart-container').css('height', '150')
   $('.best_in_place').best_in_place()
 
   if $('tr.error').length
     $('tr.error').find('span.label').addClass('label-important')
     $('tr:not(".error")').find('.btn-group').hide()
+
     intervalId = setInterval(updateTimer, 1000)
 
 ## Start - Stop
 #
   $('.btn-danger:contains("Start")').click (e) ->
-    e.preventDefault()
-    taskId = $(@).closest('.btn-group').data('task_id')
-    $.ajax(
-      url: Routes.task_time_trackings_path(taskId, { format: 'json'} ),
-      type: 'POST'
-    ).done (data) =>
-      $(@).closest('tr').addClass('error')
-      $(@).closest('tr').find('span.label').addClass('label-important')
-      $('tr:not(".error")').find('.btn-group').hide()
-      intervalId = setInterval(updateTimer, 1000)
+    unless $('tr.error').length
+      e.preventDefault()
+      taskId = $(@).closest('.btn-group').data('task_id')
+      $.ajax(
+        url: Routes.task_time_trackings_path(taskId, { format: 'json'} ),
+        type: 'POST'
+      ).done (data) =>
+        $(@).closest('tr').addClass('error')
+        $(@).closest('tr').find('span.label').addClass('label-important')
+        $('tr:not(".error")').find('.btn-group').hide()
+        intervalId = setInterval(updateTimer, 1000)
 
   $('.btn:contains("Stop")').click (e) ->
     e.preventDefault()
-    taskId = $(@).closest('.btn-group').data('task_id')
-    trackId = $(@).closest('.btn-group').data('track_id')
-    $.ajax(
-      url: Routes.task_time_tracking_path(taskId, trackId, { format: 'json'} ),
-      type: 'DELETE'
-    ).done (data) =>
-      clearInterval(intervalId)
-      $(@).closest('tr').find('.label').removeClass('label-important')
-      $(@).closest('tr').removeClass('error')
-      $('tr:not(".error")').find('.btn-group').show()
+    if $('tr.error').length
+      taskId = $(@).closest('.btn-group').data('task_id')
+      trackId = $(@).closest('.btn-group').data('track_id')
+      $.ajax(
+        url: Routes.task_time_tracking_path(taskId, trackId, { format: 'json'} ),
+        type: 'DELETE'
+      ).done (data) =>
+        clearInterval(intervalId)
+        $(@).closest('tr').find('.label').removeClass('label-important')
+        $(@).closest('tr').removeClass('error')
+        $('tr:not(".error")').find('.btn-group').show()
 
 ## Chart
 #

@@ -23,8 +23,8 @@
       .page-header
         %h5 Chart
 
-      .chart-container#week
+      .chart-container#week{ :"data-chart_series" => @tasks.map{ |t| t.time_chart.to_json } }
+
 #modals
   = render 'tasks/form'
 
-#recents{ :"data-chart_series" => @tasks.map{ |t| t.time_chart.to_json } }
