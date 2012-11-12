@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
   respond_to :json, :html
 
+  before_filter :authenticate_manager!
   before_filter :initialize_task, only: :index
-  before_filter :load_recent_tracked, only: :index
 
   def index
-    @tasks = @current_manager.tasks.all
+    @tasks = current_manager.tasks.all
     respond_with @tasks
   end
 
@@ -38,10 +38,6 @@ class TasksController < ApplicationController
 
   def initialize_task
     @task = current_manager.tasks.build
-  end
-
-  def load_recent_tracked
-    @recent_tracked = TimeTracking.users_recent(current_manager)
   end
 
 end

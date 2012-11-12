@@ -13,6 +13,18 @@ class Task < ActiveRecord::Base
   belongs_to :project
   has_many :time_trackings
 
+  after_save do
+    Rails.cache.write("task_#{id}", self)
+  end
+
+  after_destroy do
+    Rails.cache.destroy("tas#{id}")
+  end
+
+  def self.fetch(id)
+    Rails.cache.fetch("task_#{id}") { Task.find(id) }
+  end
+
   def live?
     time_trackings.running.any?
   end
@@ -32,7 +44,7 @@ class Task < ActiveRecord::Base
     elapsed.map!{ |t| Time.format_digit(t) }.join(':')
   end
 
-  def times_per_day
+  def time_chart
     grouped = { name: self.name, data: [ ] }
     5.times do |days|
       grouped[:data] << self.time_trackings.map{ |t| t.total_time if t.created_at.to_date == Date.today - days.days }.delete_if{ |x| x.nil? }
