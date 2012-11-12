@@ -21,6 +21,7 @@ gem 'time_diff'
 gem 'js-routes'
 gem 'redis'
 gem 'best_in_place'
+gem 'heroku'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -32,4 +33,8 @@ group :test do
   gem 'cucumber-rails'
   gem 'capybara'
   gem 'shoulda'
+end
+
+group :dev_cache do
+  gem 'dalli'
 end

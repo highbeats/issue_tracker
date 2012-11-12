@@ -62,6 +62,7 @@ GEM
       cucumber (>= 1.1.8)
       nokogiri (>= 1.5.0)
     daemons (1.1.9)
+    dalli (2.3.0)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -70,6 +71,7 @@ GEM
     diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (1.0.0)
+    excon (0.16.7)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.1.0)
@@ -86,6 +88,14 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (~> 3.1)
       railties (>= 3.1, < 4.1)
+    heroku (2.33.0)
+      heroku-api (~> 0.3.5)
+      launchy (>= 0.3.2)
+      netrc (~> 0.7.7)
+      rest-client (~> 1.6.1)
+      rubyzip
+    heroku-api (0.3.6)
+      excon (~> 0.16.7)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -95,6 +105,8 @@ GEM
     js-routes (0.8.4)
       rails (>= 3.2)
     json (1.7.5)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     libwebsocket (0.1.5)
       addressable
     mail (2.4.4)
@@ -103,6 +115,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.19)
     multi_json (1.3.6)
+    netrc (0.7.7)
     nokogiri (1.5.5)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
@@ -132,6 +145,8 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     redis (3.0.2)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -201,9 +216,11 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.1)
   cucumber-rails
+  dalli
   devise
   factory_girl_rails
   haml-rails
+  heroku
   jquery-rails
   js-routes
   rails (= 3.2.8)

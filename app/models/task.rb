@@ -28,7 +28,16 @@ class Task < ActiveRecord::Base
         end
       end
     end
-    elapsed = Time.get_time_diff_components(%w(hour minute), times.inject(0, :+).round)
+    elapsed = Time.get_time_diff_components(%w(hour minute second), times.inject(0, :+).round)
     elapsed.map!{ |t| Time.format_digit(t) }.join(':')
+  end
+
+  def times_per_day
+    grouped = { name: self.name, data: [ ] }
+    5.times do |days|
+      grouped[:data] << self.time_trackings.map{ |t| t.total_time if t.created_at.to_date == Date.today - days.days }.delete_if{ |x| x.nil? }
+    end
+    grouped[:data].map!{ |x| x.inject(:+) }
+    grouped
   end
 end

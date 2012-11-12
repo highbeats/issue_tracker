@@ -1,5 +1,5 @@
 class TimeTracking < ActiveRecord::Base
-  attr_accessible :stopped_at, :task_id, :manager_id, :total_time
+  attr_accessible :stopped_at, :task_id, :manager_id, :total_time, :created_at
 
   belongs_to :task
   belongs_to :manager

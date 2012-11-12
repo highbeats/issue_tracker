@@ -3,20 +3,28 @@
   .span12
     .page-header
       %h2 Tracker
-    .btn-toolbar
-      .btn-group.pull-right
-        = link_to '#', class: 'btn btn-inverse btn-small', id: 'new_task' do
-          %i.icon-plus-sign.icon-white
-          %span new task
-        = link_to '#', class: 'btn btn-primary btn-small', id: 'new_project' do
-          %i.icon-plus-sign.icon-white
-          %span new project
+    .span8
+      .btn-toolbar
+        .btn-group
+          = link_to '#', class: 'btn btn-inverse btn-small', id: 'new_task' do
+            %i.icon-plus-sign.icon-white
+            %span task
 
-    %table.table.table-hover
-      %caption
-        Active tasks
-      %tbody
-        = render partial: 'task', collection: @tasks
+      %table.table.table-hover
+        %thead
+          %tr
+            %th Task
+            %th Project
+            %th Estimated
+            %th So far
+        %tbody
+          = render partial: 'task', collection: @tasks
+    .span3
+      .page-header
+        %h5 Chart
+
+      .chart-container#week
 #modals
   = render 'tasks/form'
 
+#recents{ :"data-chart_series" => @tasks.map{ |t| t.times_per_day.to_json } }
