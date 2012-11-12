@@ -27,4 +27,4 @@
 #modals
   = render 'tasks/form'
 
-#recents{ :"data-chart_series" => @tasks.map{ |t| t.times_per_day.to_json } }
+#recents{ :"data-chart_series" => @tasks.map{ |t| t.time_chart.to_json } }
