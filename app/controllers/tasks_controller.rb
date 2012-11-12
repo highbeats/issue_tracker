@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   def create
     @task = current_manager.tasks.create(params[:task])
     respond_with @task do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to root_url }
     end
   end
 

@@ -13,17 +13,17 @@ class Task < ActiveRecord::Base
   belongs_to :project
   has_many :time_trackings
 
-  after_save do
-    Rails.cache.write("task_#{id}", self)
-  end
-
-  after_destroy do
-    Rails.cache.destroy("tas#{id}")
-  end
-
-  def self.fetch(id)
-    Rails.cache.fetch("task_#{id}") { Task.find(id) }
-  end
+#  after_save do
+#    Rails.cache.write("task_#{id}", self)
+#  end
+#
+#  after_destroy do
+#    Rails.cache.destroy("tas#{id}")
+#  end
+#
+#  def self.fetch(id)
+#    Rails.cache.fetch("task_#{id}") { Task.find(id) }
+#  end
 
   def live?
     time_trackings.running.any?
