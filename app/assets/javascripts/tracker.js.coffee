@@ -39,6 +39,7 @@ $ ->
         $(@).closest('tr').addClass('error')
         $(@).closest('tr').find('span.label').addClass('label-important')
         $('tr:not(".error")').find('.btn-group').hide()
+        $(@).closest('.btn-group').attr('data-track_id', data.id)
         intervalId = setInterval(updateTimer, 1000)
 
   $('.btn:contains("Stop")').click (e) ->
