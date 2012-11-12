@@ -1,15 +1,32 @@
 $ ->
   weekChart = {}
   intervalId = 0
-  runTimer = $('tr.error')
-  hideStoppedControls = ->
-    $('tr:not(".error")').find('.btn-group').hide()
 
-  $('.best_in_place').best_in_place()
   $('#new_task').click (e) ->
     e.preventDefault()
     $('#new_tsk_mod').modal keyboard: true
 
+
+  pad = (val) -> if(val > 9) then ("" + val) else ("0" + val)
+
+  updateTimer = ->
+    sec = parseInt($('span.secs.label-important').text())
+    mins = parseInt($('span.mins.label-important').text())
+    $('span.secs.label-important').html(pad(++sec%60))
+    $('span.mins.label-important').html(pad(++mins%60)) if sec%60 is 0
+##
+#
+
+  $('.chart-container').css('height', $('table').css('height'))
+  $('.best_in_place').best_in_place()
+
+  if $('tr.error').length
+    $('tr.error').find('span.label').addClass('label-important')
+    $('tr:not(".error")').find('.btn-group').hide()
+    intervalId = setInterval(updateTimer, 1000)
+
+## Start - Stop
+#
   $('.btn-danger:contains("Start")').click (e) ->
     e.preventDefault()
     taskId = $(@).closest('.btn-group').data('task_id')
@@ -20,7 +37,7 @@ $ ->
       $(@).closest('tr').addClass('error')
       $(@).closest('tr').find('span.label').addClass('label-important')
       $('tr:not(".error")').find('.btn-group').hide()
-      intervalId = timerGo()
+      intervalId = setInterval(updateTimer, 1000)
 
   $('.btn:contains("Stop")').click (e) ->
     e.preventDefault()
@@ -35,22 +52,8 @@ $ ->
       $(@).closest('tr').removeClass('error')
       $('tr:not(".error")').find('.btn-group').show()
 
-  pad = (val) -> if(val > 9) then val else ("0" + val)
-
-  updateTimer = ->
-    sec = parseInt($('span.secs.label-important').text())
-    mins = parseInt($('span.mins.label-important').text())
-    $('span.secs.label-important').html(pad(++sec%60))
-    $('span.mins.label-important').html(pad(++mins%60)) if sec%60 is 0
-
-  timerGo = ->
-    setInterval updateTimer, 1000
-
-  if $('tr.error').length
-    runTimer.find('span.label').addClass('label-important')
-    hideStoppedControls()
-    intervalId = timerGo()
-
+## Chart
+#
   recOpts =
     chart:
       renderTo: $('#week')[0],
@@ -68,11 +71,11 @@ $ ->
         cursor: 'pointer'
     series: []
 
-  $('.chart-container').css('height', $('table').css('height'))
 
   recSeries = $('div[data-chart_series]').data('chart_series')
   $.each recSeries, (i, s) ->
     recOpts.xAxis.categories.push('Day')
     recOpts.series.push(JSON.parse(s))
+
   weekChart = new Highcharts.Chart(recOpts)
 
