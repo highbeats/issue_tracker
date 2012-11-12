@@ -2,7 +2,7 @@ class CreateTasks < ActiveRecord::Migration
   def change
     create_table :tasks do |t|
       t.string :name
-      t.string :time_spent, :null => false
+      t.string :time_spent
       t.integer :manager_id
       t.datetime :last_updated_at
       t.datetime :started_at
